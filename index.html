@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>LUCKY ARCADE OF LUCKY WINNERS</title>
+        <style>
+            h1{
+                text-align: center;
+                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 500%;
+                color: gold;
+            }
+            #butt{
+                text-align: center;
+            }
+            button{
+                width: 100%;
+                height: 25%;
+                color: rgb(0, 180, 15);
+                font-size: 250%;
+                font-weight: 900;
+                background-color: rgb(0, 255, 47);
+                border-width: 10px;
+                border-color: rgb(0, 180, 27);
+            }
+            h2{
+                text-align: center;
+                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 600%;
+                color: red;
+            }
+            #theft{
+                visibility: hidden;
+            }
+            p{
+                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 100%;
+                color: rgb(255, 0, 0);
+                line-height: 0%;
+                font-weight: 600;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>LUCKY ARCADE OF LUCKY WINNERS</h1>
+        <p id="won">Total money won: $0</p>
+        <p id="lost">Total money put in the jackpot: $0</p>
+        <h1 id="moniez">MONEY: $50</h1>
+        <div id="butt">
+            <button onclick="
+                let money = Number(document.getElementById('moniez').innerText.slice(8, document.getElementById('moniez').innerText.length));
+                let oldMoney = money;
+                console.log(money);
+                money += Math.floor((Math.random()-0.55)*10);
+                if(money - oldMoney > 0){
+                    console.log(money - oldMoney);
+                    let len = document.getElementById('won').innerText.length;
+                    document.getElementById('won').innerText = 'Total money won: $' + ((Number(document.getElementById('won').innerText.slice(18, len))) + (money - oldMoney));
+                }else{
+                    console.log(oldMoney - money);
+                    let len = document.getElementById('lost').innerText.length;
+                    document.getElementById('lost').innerText = 'Total money put in the jackpot: $' + ((Number(document.getElementById('lost').innerText.slice(33, len))) + (oldMoney - money));
+                }
+                document.getElementById('moniez').innerText = 'MONEY: $' + money;
+                new Audio('money.mp3').play();
+                if(money < 0){
+                    document.getElementById('theft').style.visibility = 'visible';
+                }else{
+                    document.getElementById('theft').style.visibility = 'hidden';
+                }
+                if(Math.random() > 0.99){
+                    console.log('wooooouuooouuOOOOOOOoOOOOoooOOOOOOOOoOOOoOOO Sytoy of under tarlEEEEEEEEEEEEEEEEEEEEe');
+                    let len = document.getElementById('lost').innerText.length;
+                    money += Math.abs(Number(document.getElementById('lost').innerText.slice(33, len)) - Math.abs(Number(document.getElementById('moniez').innerText.slice(8, document.getElementById('moniez').innerText.length))));
+                    document.getElementById('moniez').innerText = 'MONEY: $' + money;
+                    document.getElementById('lost').innerText = 'Total money put in the jackpot: $0';
+                    len = document.getElementById('won').innerText.length;
+                    document.getElementById('won').innerText = 'Total money won: $' + ((Number(document.getElementById('won').innerText.slice(18, len))) + (money - oldMoney));
+                    new Audio('jackpot.mp3').play();
+                }
+            ">TEST YOUR LUCK</button>
+        </div>
+        <div id="theft">
+            <h2 id="debt">YOU ARE IN DEBT!!! GAMBLE MORE TO EARN IT BACK!!!</h2>
+            <button onclick="
+                document.getElementById('moniez').innerText = 'MONEY: $' + (Number(document.getElementById('moniez').innerText.slice(8, document.getElementById('moniez').innerText.length)) + Math.floor((Math.random())*100));
+                if(Number(document.getElementById('moniez').innerText.slice(8, document.getElementById('moniez').innerText.length)) > 0){
+                    document.getElementById('theft').style.visibility = 'hidden';
+                }
+            ">BEG MOM FOR MONEY</button>
+        </div>
+    </body>
+</html>
